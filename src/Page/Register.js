@@ -1,39 +1,57 @@
 import { useState } from "react";
-import { Form, Button, Container, Card } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Form, Button, Container, Card, Alert } from "react-bootstrap";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Register() {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [success, setSuccess] = useState(false);
+    const navigate = useNavigate();
+    const handleCancel = () => navigate("/");
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log("Đăng ký:", name, email, password);
-        //sẽ gọi API Laravel ở đây
+            const newUser = {
+            name,
+            email,
+            password,
+            role: "patient",
+        };
+        console.log("Đăng ký:", newUser);
+        setSuccess(true); // bật thông báo thành công
+        setTimeout(() => navigate("/login"), 2000); // chuyển sang login sau 2s
     };
     return (
         <Container className="mt-5" style={{ maxWidth: "450px" }}>
             <Card className="p-4 shadow">
-                <h3 className="text-center mb-4 text-primary">Đăng ký tài khoản</h3>
+                <h3 className="text-center mb-4 text-primary">Register an account</h3>
+                {success && (
+                    <Alert variant="success" className="text-center">
+                        Account registration successful, please wait a moment...
+                    </Alert>
+                )}
                 <Form onSubmit={handleSubmit}>
                     <Form.Group className="mb-3">
-                        <Form.Label>Họ tên</Form.Label>
-                        <Form.Control type="text" placeholder="Nhập họ tên" value={name} onChange={(e) => setName(e.target.value)} required/>
+                        <Form.Label>Full name</Form.Label>
+                        <Form.Control type="text" placeholder="Enter your full name" value={name} onChange={(e) => setName(e.target.value)} required/>
                     </Form.Group>
                     <Form.Group className="mb-3">
                         <Form.Label>Email</Form.Label>
-                        <Form.Control type="email" placeholder="Nhập email" value={email} onChange={(e) => setEmail(e.target.value)} required/>
+                        <Form.Control type="email" placeholder="Enter email" value={email} onChange={(e) => setEmail(e.target.value)} required/>
                     </Form.Group>
                     <Form.Group className="mb-3">
-                        <Form.Label>Mật khẩu</Form.Label>
-                        <Form.Control type="password" placeholder="Tạo mật khẩu" value={password} onChange={(e) => setPassword(e.target.value)} required/>
+                        <Form.Label>Password</Form.Label>
+                        <Form.Control type="password" placeholder="Create a password" value={password} onChange={(e) => setPassword(e.target.value)} required/>
                     </Form.Group>
-                    <Button type="submit" variant="primary" className="w-100">Đăng ký</Button>
+                    <div className="d-grid gap-2">
+                        <Button type="submit" variant="primary">Register</Button>
+                        <Button type="button" variant="secondary" onClick={handleCancel}>Cancel</Button>
+                    </div>
                 </Form>
                 <div className="text-center mt-3">
                     <small>
-                        Đã có tài khoản?{" "}
-                        <Link to="/login" className="text-primary">Đăng nhập</Link>
+                        Already have an account?{" "}
+                        <Link to="/login" className="text-primary">Sign in</Link>
                     </small>
                 </div>
             </Card>

@@ -5,20 +5,23 @@ import HomePage from './Page/HomePage';
 import Header from './Components/Header';
 import Login from './Page/Login';
 import Register from './Page/Register';
+import { AuthProvider } from './Context/Context';
 function App() {
   return (
-  <div className="App">
-    <Header/>
-    <main>
-      <div className="container">
-        <Routes>
-          <Route path="/" element={<HomePage/>} />
-          <Route path="/login" element={<Login/>} />
-          <Route path="/register" element={<Register/>} />
-        </Routes>
+    <AuthProvider>
+      <div className="App">
+        <Header/>
+        <main>
+          <div className="container">
+            <Routes>
+              <Route path="/" element={<HomePage/>} />
+              <Route path="/login" element={<Login/>} />
+              <Route path="/register" element={<Register/>} />
+            </Routes>
+          </div>
+        </main>
       </div>
-    </main>
-  </div>
+    </AuthProvider>
   );
 }
 

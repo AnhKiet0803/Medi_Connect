@@ -1,82 +1,60 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Navbar, Nav, Container, Button, NavDropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import AuthContext from "../Context/Context";
 
 export default function Header() {
-  const userRole = "admin"; 
+  const { user, role, logout } = useContext(AuthContext);
   return (
     <Navbar bg="light" expand="lg" className="shadow-sm sticky-top">
       <Container>
-        {/* Logo */}
         <Navbar.Brand as={Link} to="/" className="text-primary fw-bold fs-4">
           MediConnect
         </Navbar.Brand>
-
-        {/* Toggle Button for mobile */}
         <Navbar.Toggle aria-controls="main-navbar" />
-
-        {/* Navigation Links */}
         <Navbar.Collapse id="main-navbar">
           <Nav className="me-auto">
-            <Nav.Link as={Link} to="/" className="text-primary fw-medium">
-              Trang chủ
-            </Nav.Link>
-            <Nav.Link as={Link} to="/doctors" className="text-primary fw-medium">
-              Bác sĩ
-            </Nav.Link>
-            <Nav.Link as={Link} to="/appointments" className="text-primary fw-medium">
-              Đặt lịch
-            </Nav.Link>
-            <Nav.Link as={Link} to="/articles" className="text-primary fw-medium">
-              Tin tức
-            </Nav.Link>
-            <Nav.Link as={Link} to="/contact" className="text-primary fw-medium">
-              Liên hệ
-            </Nav.Link>
+            <Nav.Link as={Link} to="/" className="text-primary fw-medium">Home</Nav.Link>
+            <Nav.Link as={Link} to="/doctors" className="text-primary fw-medium">Doctors</Nav.Link>
+            <Nav.Link as={Link} to="/appointments" className="text-primary fw-medium">Make an appointment</Nav.Link>
+            <Nav.Link as={Link} to="/articles" className="text-primary fw-medium">News</Nav.Link>
+            <Nav.Link as={Link} to="/contact" className="text-primary fw-medium">Contact</Nav.Link>
           </Nav>
-
-          {/* User Dropdown */}
           <Nav>
-            <NavDropdown title="Tài khoản" id="user-dropdown" align="end">
-              {userRole === "admin" && (
-                <>
-                  <NavDropdown.Item as={Link} to="/admin/dashboard">
-                    Trang quản trị
-                  </NavDropdown.Item>
-                  <NavDropdown.Item as={Link} to="/admin/manage-users">
-                    Quản lý người dùng
-                  </NavDropdown.Item>
-                </>
-              )}
-              {userRole === "doctor" && (
-                <>
-                  <NavDropdown.Item as={Link} to="/doctor/profile">
-                    Hồ sơ bác sĩ
-                  </NavDropdown.Item>
-                  <NavDropdown.Item as={Link} to="/doctor/appointments">
-                    Lịch khám
-                  </NavDropdown.Item>
-                </>
-              )}
-              {userRole === "patient" && (
-                <>
-                  <NavDropdown.Item as={Link} to="/patient/profile">
-                    Hồ sơ bệnh nhân
-                  </NavDropdown.Item>
-                  <NavDropdown.Item as={Link} to="/patient/appointments">
-                    Lịch hẹn của tôi
-                  </NavDropdown.Item>
-                </>
-              )}
-
-              <NavDropdown.Divider />
-              <NavDropdown.Item as={Link} to="/logout" className="text-danger">
-                Đăng xuất
-              </NavDropdown.Item>
-            </NavDropdown>
-
-            <Button as={Link} to="/login" variant="outline-primary" className="ms-3">Log in</Button>
-            <Button as={Link} to="/register" variant="primary" className="ms-2">Register</Button>
+            {user ? (
+              <>
+                <span className="me-3 fw-semibold text-primary">
+                  Hello, {user.fullName}
+                </span>
+                <NavDropdown title="Tài khoản" id="user-dropdown" align="end">
+                  {role === "admin" && (
+                    <>
+                      <NavDropdown.Item as={Link} to="/admin/dashboard">Admin page</NavDropdown.Item>
+                      <NavDropdown.Item as={Link} to="/admin/manage-users">User management</NavDropdown.Item>
+                    </>
+                  )}
+                  {role === "doctor" && (
+                    <>
+                      <NavDropdown.Item as={Link} to="/doctor/profile">Doctor profile</NavDropdown.Item>
+                      <NavDropdown.Item as={Link} to="/doctor/appointments">Examination schedule</NavDropdown.Item>
+                    </>
+                  )}
+                  {role === "patient" && (
+                    <>
+                      <NavDropdown.Item as={Link} to="/patient/profile">Patient profile</NavDropdown.Item>
+                      <NavDropdown.Item as={Link} to="/patient/appointments">My appointment schedule</NavDropdown.Item>
+                    </>
+                  )}
+                  <NavDropdown.Divider />
+                  <NavDropdown.Item onClick={logout} className="text-danger">Log out</NavDropdown.Item>
+                </NavDropdown>
+              </>
+            ) : (
+              <>
+                <Button as={Link} to="/login" variant="outline-primary" className="ms-3">Login</Button>
+                <Button as={Link} to="/register" variant="primary" className="ms-2">Register</Button>
+              </>
+            )}
           </Nav>
         </Navbar.Collapse>
       </Container>
