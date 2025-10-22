@@ -16,7 +16,19 @@ export default function Login() {
         //Tạo object chứa thông tin user
         const userData = { email, fullName };
         login(userData, role); //truyền đúng format
-        navigate("/");
+        switch (role) {
+            case "doctor":
+                navigate("/doctor/dashboard");
+                break;
+            case "admin":
+                navigate("/admin/dashboard");
+                break;
+            case "patient":
+                navigate("/"); 
+                break;
+            default:
+                navigate("/");
+        }
     };
     return (
         <Container className="mt-5" style={{ maxWidth: "450px" }}>
