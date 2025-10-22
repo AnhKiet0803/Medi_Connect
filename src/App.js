@@ -12,6 +12,7 @@ import DoctorAppointments from './Page/Doctor/DoctorAppointment';
 import DoctorNotifications from './Page/Doctor/DoctorNotifications';
 import AllDoctorsPage from "./Page/AllDoctorsPage";
 import DoctorDetailPage from "./Page/DoctorDetailPage";
+import ConfirmAppointmentPage from "./Page/ConfirmAppointmentPage";
 function App() {
   return (
     <AuthProvider>
@@ -31,6 +32,7 @@ function App() {
               <Route path="/doctor/notifications" element={<DoctorNotifications/>} />
               <Route path="/doctors" element={<AllDoctorsPage />} />
               <Route path="/doctor/:id" element={<DoctorDetailPage />} />
+              <Route path="/confirm-appointment" element={<ConfirmAppointmentPage />} />
             </Routes>
           </div>
         </main>

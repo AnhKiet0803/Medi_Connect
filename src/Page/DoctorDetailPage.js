@@ -47,6 +47,23 @@ function DoctorDetailPage() {
     );
   }
 
+  // ✅ Handle confirm appointment
+  const handleConfirmAppointment = () => {
+    if (!selectedDate || !selectedTime) {
+      alert("⚠️ Please select both date and time before confirming.");
+      return;
+    }
+
+    // 👉 Navigate to confirm appointment page with selected data
+    navigate("/confirm-appointment", {
+      state: {
+        doctor,
+        selectedDate,
+        selectedTime,
+      },
+    });
+  };
+
   return (
     <div className="container my-5">
       <button
@@ -72,7 +89,8 @@ function DoctorDetailPage() {
             <p className="mb-1">{doctor.specialty}</p>
             <p className="text-muted">{doctor.hospital}</p>
             <p>
-              <strong>Clinical Experience:</strong> Over 15 years of professional medical practice.
+              <strong>Clinical Experience:</strong> Over 15 years of
+              professional medical practice.
             </p>
             <p>
               <strong>Location:</strong> Ho Chi Minh City, Vietnam
@@ -114,9 +132,7 @@ function DoctorDetailPage() {
             <button
               key={index}
               className={`btn ${
-                selectedTime === time
-                  ? "btn-primary"
-                  : "btn-outline-primary"
+                selectedTime === time ? "btn-primary" : "btn-outline-primary"
               }`}
               onClick={() => setSelectedTime(time)}
             >
@@ -144,11 +160,7 @@ function DoctorDetailPage() {
           <button
             className="btn btn-success"
             disabled={!selectedDate || !selectedTime}
-            onClick={() =>
-              alert(
-                `Appointment confirmed!\nDate: ${selectedDate}\nTime: ${selectedTime}`
-              )
-            }
+            onClick={handleConfirmAppointment}
           >
             Confirm Appointment
           </button>
