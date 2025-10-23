@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import doctorsData from "../data/doctors.json";
+import AuthContext from "../Context/Context"; // ✅ Thêm dòng này
 import "bootstrap/dist/css/bootstrap.min.css";
 
 function DoctorDetailPage() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { user } = useContext(AuthContext); // ✅ Lấy thông tin người dùng đăng nhập từ context
+
   const doctor = doctorsData.find((doc) => doc.id === parseInt(id));
 
   // ✅ Generate the next 7 days
@@ -54,7 +57,14 @@ function DoctorDetailPage() {
       return;
     }
 
-    // 👉 Navigate to confirm appointment page with selected data
+    // ✅ Kiểm tra xem người dùng đã đăng nhập chưa
+    if (!user) {
+      alert("⚠️ Please log in to book an appointment.");
+      navigate("/login"); // 👉 Nếu chưa đăng nhập, quay lại trang login
+      return;
+    }
+
+    // 👉 Nếu đã đăng nhập thì chuyển tiếp tới trang xác nhận
     navigate("/confirm-appointment", {
       state: {
         doctor,
