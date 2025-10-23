@@ -18,8 +18,8 @@ export default function Register() {
             role: "patient",
         };
         console.log("Đăng ký:", newUser);
-        setSuccess(true); // bật thông báo thành công
-        setTimeout(() => navigate("/login"), 2000); // chuyển sang login sau 2s
+        setSuccess(true);
+        setTimeout(() => navigate("/login"), 2000);
     };
     return (
         <Container className="mt-5" style={{ maxWidth: "450px" }}>

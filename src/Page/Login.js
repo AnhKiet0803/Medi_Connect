@@ -32,67 +32,40 @@ export default function Login() {
     };
     return (
        <Container className="mt-5" style={{ maxWidth: "450px" }}>
-  <Card className="p-4 shadow text-start"> {/* thêm text-start ở đây */}
-    <h3 className="text-center mb-4 text-primary">Login</h3>
-    <Form onSubmit={handleSubmit}>
-      <Form.Group className="mb-3">
-        <Form.Label>Full name</Form.Label>
-        <Form.Control
-          type="text"
-          placeholder="Enter your full name"
-          value={fullName}
-          onChange={(e) => setFullName(e.target.value)}
-          required
-        />
-      </Form.Group>
-
-      <Form.Group className="mb-3">
-        <Form.Label>Email</Form.Label>
-        <Form.Control
-          type="email"
-          placeholder="Enter your email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-      </Form.Group>
-
-      <Form.Group className="mb-3">
-        <Form.Label>Password</Form.Label>
-        <Form.Control
-          type="password"
-          placeholder="Enter your password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-      </Form.Group>
-
-      <Form.Group className="mb-3">
-        <Form.Select
-          value={role}
-          onChange={(e) => setRole(e.target.value)}
-        >
-          <option value="admin">Admin</option>
-          <option value="doctor">Doctor</option>
-          <option value="patient">Patient</option>
-        </Form.Select>
-      </Form.Group>
-
-      <div className="d-grid gap-2">
-        <Button type="submit" variant="primary">Login</Button>
-        <Button variant="secondary" onClick={() => navigate("/")}>Cancel</Button>
-      </div>
-    </Form>
-
-    <div className="text-center mt-3">
-      <small>
-        Don't have an account yet?{" "}
-        <Link to="/register" className="text-primary">Register now</Link>
-      </small>
-    </div>
-  </Card>
-</Container>
-
+            <Card className="p-4 shadow text-start">
+                <h3 className="text-center mb-4 text-primary">Login</h3>
+                <Form onSubmit={handleSubmit}>
+                    <Form.Group className="mb-3">
+                        <Form.Label>Full name</Form.Label>
+                        <Form.Control type="text" placeholder="Enter your full name" value={fullName} onChange={(e) => setFullName(e.target.value)} required/>
+                    </Form.Group>
+                    <Form.Group className="mb-3">
+                        <Form.Label>Email</Form.Label>
+                        <Form.Control type="email" placeholder="Enter your email" value={email} onChange={(e) => setEmail(e.target.value)} required/>
+                    </Form.Group>
+                    <Form.Group className="mb-3">
+                        <Form.Label>Password</Form.Label>
+                        <Form.Control type="password" placeholder="Enter your password" value={password} onChange={(e) => setPassword(e.target.value)} required/>
+                    </Form.Group>
+                    <Form.Group className="mb-3">
+                        <Form.Select value={role} onChange={(e) => setRole(e.target.value)}>
+                        <option value="admin">Admin</option>
+                        <option value="doctor">Doctor</option>
+                        <option value="patient">Patient</option>
+                        </Form.Select>
+                    </Form.Group>
+                    <div className="d-grid gap-2">
+                        <Button type="submit" variant="primary">Login</Button>
+                        <Button variant="secondary" onClick={() => navigate("/")}>Cancel</Button>
+                    </div>
+                </Form>
+                <div className="text-center mt-3">
+                    <small>
+                        Don't have an account yet?{" "}
+                        <Link to="/register" className="text-primary">Register now</Link>
+                    </small>
+                </div>
+            </Card>
+        </Container>
     );
 }
